@@ -5,6 +5,7 @@ Python version: Python 3.11.4
 Path: `cd ~/SoftwareEngineering/event_workflow/`
 
 ### 2.Structure    
+```
 event_workflow/     
 ├── app/    
 │   └── event_workflow_gui.py   
@@ -17,7 +18,8 @@ event_workflow/
 │   └── test_event_workflow.py      
 │   └── __init__.py  
 ├── main.py     
-└── README.md   
+└── README.md
+```
 
 ### 3.Test Command    
 Unit Tests :    
@@ -107,6 +109,7 @@ Approving after rejection raises: `ValueError("Cannot approve a rejected negotia
 
 Author: Jingmeng Xie  
 Date: 2025.10.28  
+
 
 
 
