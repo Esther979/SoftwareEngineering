@@ -8,7 +8,7 @@
 **Python version:** Python 3.9  
 **Required libraries:**
 No external dependencies — only Python standard libraries are used (unittest, os, sys).  
-**Path:** `cd ~/SoftwareEngineer/Inner_system/`  
+**Path:** `cd ~/SoftwareEngineering/Inner_system/`  
 
 ### 2. Structure
 ```ruby
@@ -56,5 +56,6 @@ Approving after rejection raises: `ValueError("Cannot approve a rejected negotia
 
 Author: Jingmeng Xie  
 Date: 2025.10.28  
+
 
 
