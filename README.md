@@ -1,5 +1,56 @@
 # Group7_Software Project
 ## Workflow 1
+### 1. Environment
+Python version: Python 3.11.4   
+Path: `cd ~/SoftwareEngineering/event_workflow/`
+
+### 2.Structure    
+event_workflow/     
+├── app/    
+│   └── event_workflow_gui.py   
+│   └── __init__.py     
+├── workflow/   
+│   └── event_workflow.py   
+│   └── __init__.py     
+├── tests/  
+│   ├── gui_test.py     
+│   └── test_event_workflow.py      
+│   └── __init__.py  
+├── main.py     
+└── README.md   
+
+### 3.Test Command    
+Unit Tests :    
+`python -m unittest discover -s tests -p "*.py" -v`    
+`python -m unittest discover -s tests -p "gui_test.py" -v`  
+
+Acceptance Tests :  
+`python -m app.event_workflow_gui`
+
+### 4.Core Functionalities  
+1. Create event application     
+    **Customer Service**: Create an event application by entering details of event. 
+
+2. Application Review   
+    **Senior Customer Service**: Review the application and decides whether to reject or forward it.    
+
+    **Financial Manager**: Write feedbacks on the budget and redirect it to the administration manager.     
+
+    **Administration manager**: Approve or reject the application based on the feedbacks of financial manager.  
+
+### 5.Expected Behavior 
+Event Application Workflow: `CustomerService → SeniorCustomerService → FinancialManager → AdministrationManager`    
+   1. Creating a new application automatically sets: `status = "Pending Review"`    
+   2. When each role acts, the workflow progresses through:
+`Pending Review → Forwarded/Rejected → Approved / Rejected` 
+
+Error Handling:     
+   1. If FM tries to review before SCS has forwarded:
+`ValueError("FM can only act after SCS has forwarded the application.")`
+   2. If AM tries to approve before FM review:
+`ValueError("AM cannot act before FM has reviewed the application.")`
+   3. If an invalid status is used:
+`ValueError("Invalid status: <STATUS>")`
 
 ## Workflow 2
 
@@ -56,6 +107,7 @@ Approving after rejection raises: `ValueError("Cannot approve a rejected negotia
 
 Author: Jingmeng Xie  
 Date: 2025.10.28  
+
 
 
 
