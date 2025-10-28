@@ -54,6 +54,7 @@ Assigning staff before approval raises: `ValueError("HR request must be approved
 BudgetNegotiation Workflow: `Pending → CounterOffer → Approved / Rejected`  
 Approving after rejection raises: `ValueError("Cannot approve a rejected negotiation")`  
 
-Author: Jingmeng Xie
+Author: Jingmeng Xie  
 Date: 2025.10.28  
+
 
