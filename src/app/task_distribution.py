@@ -2,6 +2,8 @@ from enum import Enum
 from datetime import datetime
 from typing import List, TypedDict
 
+from .models import Employee, Role
+
 class Department(Enum):
     PRODUCTION = "Production"
     SERVICES = "Services"
@@ -22,13 +24,9 @@ class BudgetRequest(TypedDict):
     reason: str
     timestamp: datetime
 
-class Employee():
-    def __init__(self, name: str, department: Department) -> None:
-        self.name = name
-        self.department = department
-
 class Task():
-    def __init__(self, title: str, description: str, department: Department) -> None:
+    def __init__(self, event_id: int, title: str, description: str, department: Department) -> None:
+        self.event_id: int = event_id
         self.title: str = title
         self.description: str = description
         self.department: Department = department
@@ -54,11 +52,12 @@ class Task():
         })
 
     def __repr__(self) -> str:
-        return f"<Task '{self.title}' ({self.status.value})>"
+        return f"<Task [EID: {self.event_id}] '{self.title}' ({self.status.value})>"
 
 class Worker(Employee):
     def __init__(self, name: str, department: Department, duty: str) -> None:
-        super().__init__(name, department)
+        super().__init__(name, Role.WORKER)
+        self.department: Department = department
         self.duty: str = duty 
         self.tasks: List[Task] = []
 
@@ -79,11 +78,12 @@ class Worker(Employee):
 
 class Manager(Employee):
     def __init__(self, name: str, department: Department) -> None:
-        super().__init__(name, department)
+        super().__init__(name, Role.MANAGER)
+        self.department: Department = department
         self.tasks: List[Task] = []
     
-    def create_task(self, title: str, description: str) -> Task:
-        task = Task(title, description, self.department)
+    def create_task(self, event_id: int, title: str, description: str) -> Task:
+        task = Task(event_id, title, description, self.department)
         self.tasks.append(task)
         return task
     
