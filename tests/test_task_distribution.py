@@ -1,8 +1,8 @@
 import unittest
 from typing import List
-from src.app import Task, Manager, Worker, Department, TaskStatus, Comment, BudgetRequest
+from src import Task, Manager, Worker, Department, TaskStatus, Comment, InternalBudgetRequest
 
-class TestTaskWorkflow(unittest.TestCase):
+class TestTaskDistributionWorkflow(unittest.TestCase):
     def setUp(self) -> None:
         """Set up a manager and a few workers for each test."""
         self.manager: Manager = Manager("Jack", Department.PRODUCTION)
@@ -71,7 +71,7 @@ class TestTaskWorkflow(unittest.TestCase):
         self.manager.assign_task(task, [self.workers[0]])
 
         self.workers[0].request_more_budget(task, 25000, "We'll have to rent a roof and lightning grid.")
-        budget_request: List[BudgetRequest] = self.manager.review_budget_requests(task)
+        budget_request: List[InternalBudgetRequest] = self.manager.review_budget_requests(task)
         
         self.assertEqual(budget_request, task.budget_requests)
 

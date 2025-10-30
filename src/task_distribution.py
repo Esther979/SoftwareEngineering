@@ -18,7 +18,7 @@ class Comment(TypedDict):
     comment: str
     timestamp: datetime
 
-class BudgetRequest(TypedDict):
+class InternalBudgetRequest(TypedDict):
     worker: str
     amount: float
     reason: str
@@ -33,7 +33,7 @@ class Task():
         self.assigned_workers: List[Worker] = []
         self.status: TaskStatus = TaskStatus.OPEN
         self.comments: List[Comment] = []
-        self.budget_requests: List[BudgetRequest] = []
+        self.budget_requests: List[InternalBudgetRequest] = []
         self.created_at: datetime = datetime.now()
 
     def add_comment(self, worker_name: str, comment: str) -> None:
@@ -115,7 +115,7 @@ class Manager(Employee):
         
         return task.comments
 
-    def review_budget_requests(self, task: Task) -> List[BudgetRequest]:
+    def review_budget_requests(self, task: Task) -> List[InternalBudgetRequest]:
         if task.department != self.department:
             raise PermissionError("Cannot review tasks outside your department.")
         

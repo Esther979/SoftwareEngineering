@@ -27,7 +27,7 @@ class EventApplication:
         self.comment: str = ""  
 
     def update_status(self, user_role: Role, new_status: EventApplicationStatus, comment: str = "") -> None:
-        if new_status not in EventApplicationStatus.__members__:
+        if new_status not in EventApplicationStatus:
             raise ValueError(f"Invalid status: {new_status}")
         self.status = new_status
 
@@ -39,7 +39,7 @@ class EventApplication:
         return f"[#{self.app_id}] {self.client_name} - {self.event_type} ({self.status})"
 
 
-class WorkflowSystem:
+class EventSystem:
     def __init__(self) -> None:
         self.applications: List[EventApplication] = []
         self.next_id: int = 1
