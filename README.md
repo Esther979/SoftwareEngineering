@@ -1,116 +1,104 @@
-# Group7_Software Project
-## Workflow 1
-### 1. Environment
-Python version: Python 3.11.4   
-Path: `cd ~/SoftwareEngineering/event_workflow/`
+# SEP - Swedish Events Planners
 
-### 2.Structure    
-```
-event_workflow/     
-├── app/    
-│   └── event_workflow_gui.py   
-│   └── __init__.py     
-├── workflow/   
-│   └── event_workflow.py   
-│   └── __init__.py     
-├── tests/  
-│   ├── gui_test.py     
-│   └── test_event_workflow.py      
-│   └── __init__.py  
-├── main.py     
-└── README.md
-```
+An interactive **Command-Line Interface (CLI)** simulation for managing internal operations at SEP — including event applications, task distribution, HR recruitment, and financial requests.
 
-### 3.Test Command    
-Unit Tests :    
-`python -m unittest discover -s tests -p "*.py" -v`    
-`python -m unittest discover -s tests -p "gui_test.py" -v`  
+The system models multiple roles such as **Customer Service**, **Managers**, **Workers**, **HR**, and **Finance**, all operating in a shared in-memory workflow.
 
-Acceptance Tests :  
-`python -m app.event_workflow_gui`
+---
 
-### 4.Core Functionalities  
-1. Create event application     
-    **Customer Service**: Create an event application by entering details of event. 
+## Features
 
-2. Application Review   
-    **Senior Customer Service**: Review the application and decides whether to reject or forward it.    
+### 🌐 Event Management
+- **Customer Service Officers** create event applications.
+- **Senior Customer Officer** and **Finance/Administration Manager** review and approve them.
+- Full event history and status tracking.
 
-    **Financial Manager**: Write feedbacks on the budget and redirect it to the administration manager.     
+### 🧠 Task Workflow
+- **Production/Services Managers** create, assign, and update tasks.
+- **Workers** comment and request budgets.
+- All within the same in-memory session.
 
-    **Administration manager**: Approve or reject the application based on the feedbacks of financial manager.  
+### 👥 HR Recruitment
+- **HR Managers** approve requests.
+- **HR Workers** hire new staff dynamically.
+- Updates the in-memory employee database instantly.
 
-### 5.Expected Behavior 
-Event Application Workflow: `CustomerService → SeniorCustomerService → FinancialManager → AdministrationManager`    
-   1. Creating a new application automatically sets: `status = "Pending Review"`    
-   2. When each role acts, the workflow progresses through:
-`Pending Review → Forwarded/Rejected → Approved / Rejected` 
+### 💰 Financial Requests
+- **Production/Services Managers** create budget requests.
+- **Finance Managers** review or negotiate them.
 
-Error Handling:     
-   1. If FM tries to review before SCS has forwarded:
-`ValueError("FM can only act after SCS has forwarded the application.")`
-   2. If AM tries to approve before FM review:
-`ValueError("AM cannot act before FM has reviewed the application.")`
-   3. If an invalid status is used:
-`ValueError("Invalid status: <STATUS>")`
+---
 
-## Workflow 2
+## Getting Started
 
-## Workflow 3 and Workflow 4
-### 1. Environment
-**Python version:** Python 3.9  
-**Required libraries:**
-No external dependencies — only Python standard libraries are used (unittest, os, sys).  
-**Path:** `cd ~/SoftwareEngineering/Inner_system/`  
+### Run the CLI
 
-### 2. Structure
-```ruby
-Inner_system
-├── app
-│   ├── cli.py
-│   ├── service.py
-│   ├── auth.py
-│   └── __init__.py
-├── hr
-│   ├── hr_request.py
-│   ├── staff_member.py
-│   └── __init__.py
-├── budget
-│   ├── budget_request.py
-│   ├── negotiation.py
-│   └── __init__.py
-├── tests
-│   ├── test_hr.py
-│   ├── test_hr2.py
-│   ├── test_budget.py
-│   ├── test_budget2.py
-│   ├── test_auth.py
-│   └── __init__.py
-├── main.py
-├── README.md
-└── __init__.py
+```bash
+python main.py
 ```
 
-### 3. Test Command
-**Unit Tests:** `python3 -m unittest discover -s tests -v`  
-**Acceptance Tests:** `python3 -m app.cli`
+> **Note:** No persistent storage: All data exists only during the current session.
 
-### 4. Core Functionalities
-- **HR Request Management**: Recruitment request approval and staff assignment workflow.  
-- **Budget Request & Negotiation**: Financial negotiation and approval process with counter offers.  
-- **RBAC (Role-Based Access Control)**: Enforces permissions for HR, Financial Manager (FM), and Project Manager (PM).  
-- **Automated Unit Testing**: All components verified via `unittest` under the TDD cycle.  
+### Testing
 
-### 5. Expected Behavior
-HRRequest Workflow: `Pending → Approved → Fulfilled`  
-Assigning staff before approval raises: `ValueError("HR request must be approved before staff assignment")`  
-BudgetNegotiation Workflow: `Pending → CounterOffer → Approved / Rejected`  
-Approving after rejection raises: `ValueError("Cannot approve a rejected negotiation")`  
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+```
 
-Author: Jingmeng Xie  
-Date: 2025.10.28  
+## Example CLI Session
 
+```bash
+$ python main.py 
 
+SEP Internal System CLI ⚙️
+Type 'help' to see available commands.
 
+> help
 
+Available commands:
+  login <email>                      Log in
+  help                               Show this help
+  quit                               Exit the program
 
+> login mike@sep.se
+✅ Logged in as Mike (Employee, Administration Department Manager)
+
+[Mike] > help
+
+Available commands:
+  view-event-application <app_id>
+  review-event-application <app_id> <FORWARDED|APPROVED|REJECTED> <comment>
+  logout                                  Log out
+  quit                                    Exit program
+
+[Mike] > view-event-application 1
+❌ No application found with ID 1
+[Mike] > logout
+👋 Logged out
+
+> login sarah@sep.se
+✅ Logged in as Sarah (Employee, Customer Service Officer)
+
+[Sarah] > create-event-application "TestCorp" "Workshop" "2025-12-01" "2025-12-02" 5000 "Modern theme"
+🆕 Created Event Application #1 for TestCorp
+[Sarah] > logout
+👋 Logged out
+
+> login janet@sep.se
+✅ Logged in as Janet (Employee, Senior Customer Service Officer)
+
+[Janet] > review-event-application 1 FORWARDED "Forwarding to financial review"
+✅ Application #1 updated to Forwarded
+[Janet] > logout
+👋 Logged out
+
+> quit
+👋 Goodbye!
+```
+
+## Authors
+
+**Group 7:** 
+- Jingmeng Xie
+- Erick Castillo
+- Luyao Wang
