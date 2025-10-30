@@ -7,7 +7,7 @@ The system models multiple roles such as **Customer Service**, **Managers**, **W
 ---
 
 ## Environment
-python 3.12
+python 3.12  
 Dev Containers
 
 ## Features
